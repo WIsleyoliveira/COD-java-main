@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Rectangle?>
+
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gradle.MainMenuController">
+   <!-- Background -->
+   <Rectangle fx:id="backgroundRect" arcHeight="0" arcWidth="0" fill="transparent" height="900.0" width="1400.0" styleClass="animated-background" />
+   
+   <!-- Main Container -->
+   <VBox alignment="CENTER" spacing="40.0" styleClass="main-container">
+      <padding>
+         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+      </padding>
+      
+      <!-- Header Section -->
+      <VBox alignment="CENTER" spacing="20.0" styleClass="fade-in">
+         <Text fx:id="titleText" text="🎮 TANK BATTLE ARENA" styleClass="title-primary" />
+         <Label fx:id="subtitleLabel" text="Sistema Avançado de Combate de Tanques" styleClass="subtitle" />
+         
+         <!-- Stats Panel -->
+         <HBox alignment="CENTER" spacing="40.0" styleClass="dark-card">
+            <VBox alignment="CENTER" spacing="5.0">
+               <Label text="Tanques Aliados" styleClass="stat-label" />
+               <Label fx:id="allyTankCountLabel" text="0" styleClass="stat-value" />
+            </VBox>
+            
+            <Rectangle width="2.0" height="40.0" fill="rgba(255,255,255,0.3)" />
+            
+            <VBox alignment="CENTER" spacing="5.0">
+               <Label text="Tanques Inimigos" styleClass="stat-label" />
+               <Label fx:id="enemyTankCountLabel" text="0" styleClass="stat-value" />
+            </VBox>
+            
+            <Rectangle width="2.0" height="40.0" fill="rgba(255,255,255,0.3)" />
+            
+            <VBox alignment="CENTER" spacing="5.0">
+               <Label text="Batalhas" styleClass="stat-label" />
+               <Label fx:id="battleCountLabel" text="0" styleClass="stat-value" />
+            </VBox>
+         </HBox>
+      </VBox>
+      
+      <!-- Main Actions -->
+      <HBox alignment="CENTER" spacing="30.0" styleClass="slide-in-left">
+         <!-- Tank Creation Card -->
+         <VBox alignment="CENTER" spacing="20.0" styleClass="dark-card" prefWidth="300.0">
+            <Label text="🛠️ CRIAÇÃO DE TANQUES" styleClass="title-secondary" />
+            <Label text="Crie e personalize seus tanques de combate" styleClass="subtitle" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="createTankButton" text="CRIAR TANQUE" styleClass="modern-button" onAction="#handleCreateTank" />
+         </VBox>
+         
+         <!-- Battle Modes Card -->
+         <VBox alignment="CENTER" spacing="20.0" styleClass="dark-card" prefWidth="300.0">
+            <Label text="⚔️ MODOS DE BATALHA" styleClass="title-secondary" />
+            <Label text="Selecione arena e inicie o combate" styleClass="subtitle" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="battleModeButton" text="BATALHAR" styleClass="modern-button" onAction="#handleBattleMode" />
+         </VBox>
+         
+         <!-- Statistics Card -->
+         <VBox alignment="CENTER" spacing="20.0" styleClass="dark-card" prefWidth="300.0">
+            <Label text="📊 ESTATÍSTICAS" styleClass="title-secondary" />
+            <Label text="Visualize histórico e desempenho" styleClass="subtitle" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="statsButton" text="ESTATÍSTICAS" styleClass="modern-button" onAction="#handleStats" />
+         </VBox>
+      </HBox>
+      
+      <!-- Tank Display Section -->
+      <VBox alignment="CENTER" spacing="20.0" styleClass="slide-in-right">
+         <Label text="🚗 SEUS TANQUES" styleClass="title-secondary" />
+         
+         <ScrollPane fx:id="tankScrollPane" styleClass="modern-scroll-pane" prefHeight="300.0" prefWidth="1200.0" fitToWidth="true">
+            <HBox fx:id="tankContainer" spacing="20.0" alignment="CENTER_LEFT">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               
+               <!-- Placeholder when no tanks -->
+               <VBox fx:id="noTanksPlaceholder" alignment="CENTER" spacing="15.0" prefWidth="1160.0" styleClass="tank-card">
+                  <Label text="🏜️ HANGAR VAZIO" styleClass="title-secondary" />
+                  <Label text="Nenhum tanque encontrado. Crie seu primeiro tanque para começar!" styleClass="subtitle" textAlignment="CENTER" wrapText="true" />
+                  <Button text="CRIAR PRIMEIRO TANQUE" styleClass="accent-button" onAction="#handleCreateTank" />
+               </VBox>
+            </HBox>
+         </ScrollPane>
+      </VBox>
+      
+      <!-- Quick Actions -->
+      <HBox alignment="CENTER" spacing="20.0" styleClass="bounce-in">
+         <Button fx:id="quickTrainingButton" text="⚡ TREINO RÁPIDO" styleClass="accent-button" onAction="#handleQuickTraining" />
+         <Button fx:id="randomBattleButton" text="🎲 BATALHA ALEATÓRIA" styleClass="accent-button" onAction="#handleRandomBattle" />
+         <Button fx:id="settingsButton" text="⚙️ CONFIGURAÇÕES" styleClass="nav-button" onAction="#handleSettings" />
+         <Button fx:id="exitButton" text="❌ SAIR" styleClass="danger-button" onAction="#handleExit" />
+      </HBox>
+   </VBox>
+</StackPane>
