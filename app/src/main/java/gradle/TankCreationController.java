@@ -34,6 +34,7 @@ public class TankCreationController implements Initializable {
     @FXML private Label previewArmorValue;
     @FXML private Label previewSpeedValue;
     @FXML private Label previewFirepowerValue;
+    @FXML private ComboBox<String> weaponComboBox;
     @FXML private Button createButton;
     @FXML private VBox toastContainer;
     @FXML private Label toastMessage;
@@ -48,6 +49,7 @@ public class TankCreationController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setupToggleGroups();
         setupInitialValues();
+        setupWeaponComboBox();
         updatePreview();
     }
     
@@ -73,6 +75,11 @@ public class TankCreationController implements Initializable {
     private void setupInitialValues() {
         tankNameField.setText("Tank-" + (random.nextInt(9000) + 1000));
         updateClassBonus();
+    }
+
+    private void setupWeaponComboBox() {
+        weaponComboBox.getItems().addAll("Metralhadora", "Míssil", "Canhão");
+        weaponComboBox.setValue("Metralhadora");
     }
     
     private void updatePreview() {
@@ -268,6 +275,9 @@ public class TankCreationController implements Initializable {
             novoTanque = new Pesado(id, codinome, blindagem, velocidade, poderDeFogo, horaEntrada);
             novoTanque.Caracterisrticas(); // Chamar método para definir atributos
         }
+
+        // Definir arma selecionada
+        novoTanque.setArma(weaponComboBox.getValue());
 
         if (allyToggle.isSelected()) {
             MainApp.getTanquesAliado().add(novoTanque);

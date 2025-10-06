@@ -59,7 +59,13 @@
                <Label text="🏷️ Codinome do Tanque:" styleClass="stat-label" />
                <TextField fx:id="tankNameField" promptText="Digite o codinome..." styleClass="modern-text-field" />
             </VBox>
-            
+
+            <!-- Weapon Selection -->
+            <VBox spacing="10.0">
+               <Label text="🔫 Arma do Tanque:" styleClass="stat-label" />
+               <ComboBox fx:id="weaponComboBox" promptText="Selecione uma arma..." styleClass="modern-combo-box" />
+            </VBox>
+
             <!-- Stats Configuration -->
             <Label text="⚙️ ATRIBUTOS" styleClass="title-secondary" />
             

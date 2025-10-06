@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gradle.ManualBattleController">
+   <children>
+      <!-- Header -->
+      <HBox alignment="CENTER" spacing="20.0" VBox.vgrow="NEVER">
+         <children>
+            <Label fx:id="turnLabel" text="🎯 VEZ DO TIME ALIADO" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="battleStatusLabel" text="❤️ Aliados: 6 | ❤️ Inimigos: 6" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+
+      <!-- Main Content -->
+      <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+         <children>
+            <!-- Allied Team -->
+            <VBox fx:id="alliedTeamContainer" spacing="5.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="TIME ALIADO" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+
+            <!-- Battle Controls -->
+            <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="NEVER">
+               <children>
+                  <Button fx:id="alliedAttackButton" mnemonicParsing="false" onAction="#handleAlliedAttack" text="⚔️ ATAQUE ALIADO">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="enemyAttackButton" mnemonicParsing="false" onAction="#handleEnemyAttack" text="⚔️ ATAQUE INIMIGO">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="endTurnButton" mnemonicParsing="false" onAction="#handleEndTurn" text="🔄 FINALIZAR TURNO">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#handleBackToTeamMode" text="⬅️ VOLTAR">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+
+            <!-- Enemy Team -->
+            <VBox fx:id="enemyTeamContainer" spacing="5.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="TIME INIMIGO" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+
+      <!-- Battle Log -->
+      <VBox fx:id="battleLogContainer" spacing="2.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Label text="📜 LOG DE BATALHA" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+               <content>
+                  <VBox fx:id="battleLogVBox" spacing="2.0" />
+               </content>
+            </ScrollPane>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>

@@ -21,6 +21,7 @@ public class TeamModeController implements Initializable {
     @FXML private Button size3v3Button;
     @FXML private Button size4v4Button;
     @FXML private Button size5v5Button;
+    @FXML private Button size6v6Button;
 
     @FXML private VBox alliedTeamContainer;
     @FXML private VBox enemyTeamContainer;
@@ -52,6 +53,37 @@ public class TeamModeController implements Initializable {
         size3v3Button.setOnAction(e -> setTeamSize(3));
         size4v4Button.setOnAction(e -> setTeamSize(4));
         size5v5Button.setOnAction(e -> setTeamSize(5));
+        size6v6Button.setOnAction(e -> setTeamSize(6));
+    }
+
+    @FXML
+    private void setTeamSize1v1() {
+        setTeamSize(1);
+    }
+
+    @FXML
+    private void setTeamSize2v2() {
+        setTeamSize(2);
+    }
+
+    @FXML
+    private void setTeamSize3v3() {
+        setTeamSize(3);
+    }
+
+    @FXML
+    private void setTeamSize4v4() {
+        setTeamSize(4);
+    }
+
+    @FXML
+    private void setTeamSize5v5() {
+        setTeamSize(5);
+    }
+
+    @FXML
+    private void setTeamSize6v6() {
+        setTeamSize(6);
     }
 
     private void setupControlModeButtons() {
@@ -74,6 +106,7 @@ public class TeamModeController implements Initializable {
             case 3: size3v3Button.getStyleClass().add("selected"); break;
             case 4: size4v4Button.getStyleClass().add("selected"); break;
             case 5: size5v5Button.getStyleClass().add("selected"); break;
+            case 6: size6v6Button.getStyleClass().add("selected"); break;
         }
     }
 
@@ -83,6 +116,7 @@ public class TeamModeController implements Initializable {
         size3v3Button.getStyleClass().remove("selected");
         size4v4Button.getStyleClass().remove("selected");
         size5v5Button.getStyleClass().remove("selected");
+        size6v6Button.getStyleClass().remove("selected");
     }
 
     private void setControlMode(boolean manual) {
@@ -94,9 +128,21 @@ public class TeamModeController implements Initializable {
         manualModeButton.getStyleClass().remove("selected");
         if (manual) {
             manualModeButton.getStyleClass().add("selected");
+            showAlert("Modo Selecionado", "Modo MANUAL selecionado - Você controlará as ações dos tanques!", Alert.AlertType.INFORMATION);
         } else {
             autoModeButton.getStyleClass().add("selected");
+            showAlert("Modo Selecionado", "Modo AUTOMÁTICO selecionado - Bots controlarão automaticamente!", Alert.AlertType.INFORMATION);
         }
+    }
+
+    @FXML
+    private void setControlModeAuto() {
+        setControlMode(false);
+    }
+
+    @FXML
+    private void setControlModeManual() {
+        setControlMode(true);
     }
 
     @FXML
@@ -108,12 +154,26 @@ public class TeamModeController implements Initializable {
         }
     }
 
+    private void addTankToTeam(Tanque tank, boolean isAllied) {
+        if (isAllied) {
+            alliedTeam.add(tank);
+        } else {
+            enemyTeam.add(tank);
+        }
+        updateTeamDisplay();
+        updateStartButton();
+        String teamName = isAllied ? "aliado" : "inimigo";
+        showAlert("Tanque Adicionado", "Tanque " + tank.getCodinome() + " foi adicionado ao time " + teamName + "!", Alert.AlertType.INFORMATION);
+    }
+
     @FXML
     private void handleAddBot() {
         if (alliedTeam.size() < teamSize) {
-            alliedTeam.add(createBotTank());
+            Tanque bot = createBotTank();
+            alliedTeam.add(bot);
             updateTeamDisplay();
             updateStartButton();
+            showAlert("Bot Adicionado", "Bot " + bot.getCodinome() + " foi adicionado ao seu time!", Alert.AlertType.INFORMATION);
         } else {
             showAlert("Time Completo", "Seu time já está completo!", Alert.AlertType.WARNING);
         }
@@ -131,9 +191,11 @@ public class TeamModeController implements Initializable {
     @FXML
     private void handleAddEnemyBot() {
         if (enemyTeam.size() < teamSize) {
-            enemyTeam.add(createBotTank());
+            Tanque bot = createBotTank();
+            enemyTeam.add(bot);
             updateTeamDisplay();
             updateStartButton();
+            showAlert("Bot Inimigo Adicionado", "Bot " + bot.getCodinome() + " foi adicionado ao time inimigo!", Alert.AlertType.INFORMATION);
         } else {
             showAlert("Time Completo", "O time inimigo já está completo!", Alert.AlertType.WARNING);
         }
@@ -182,13 +244,7 @@ public class TeamModeController implements Initializable {
             if (button == ButtonType.OK) {
                 Tanque selectedTank = tankList.getSelectionModel().getSelectedItem();
                 if (selectedTank != null) {
-                    if (isAllied) {
-                        alliedTeam.add(selectedTank);
-                    } else {
-                        enemyTeam.add(selectedTank);
-                    }
-                    updateTeamDisplay();
-                    updateStartButton();
+                    addTankToTeam(selectedTank, isAllied);
                 }
             }
         });
@@ -197,7 +253,9 @@ public class TeamModeController implements Initializable {
     private Tanque createBotTank() {
         // Create a random bot tank
         String[] types = {"Leve", "Medio", "Pesado"};
+        String[] weapons = {"Metralhadora", "Míssil", "Canhão"};
         String randomType = types[(int)(Math.random() * types.length)];
+        String randomWeapon = weapons[(int)(Math.random() * weapons.length)];
         String codinome = "Bot " + randomType + " " + (int)(Math.random() * 1000);
 
         Tanque botTank;
@@ -213,6 +271,7 @@ public class TeamModeController implements Initializable {
                 break;
         }
         botTank.Caracterisrticas();
+        botTank.setArma(randomWeapon);
         return botTank;
     }
 
