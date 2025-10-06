@@ -6,10 +6,9 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.shape.Rectangle?>
 
-<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gradle.TeamModeController">
-   <Rectangle fill="transparent" height="900.0" width="1400.0" styleClass="animated-background" />
-
-   <VBox alignment="CENTER" spacing="40.0" styleClass="main-container">
+<ScrollPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gradle.TeamModeController" fitToWidth="true" fitToHeight="true">
+   <VBox alignment="CENTER" spacing="40.0" styleClass="main-container" prefWidth="1400.0" prefHeight="900.0">
+      <Rectangle fill="transparent" height="900.0" width="1400.0" styleClass="animated-background" />
       <padding>
          <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
       </padding>
@@ -77,7 +76,18 @@
          </HBox>
       </VBox>
 
+      <!-- Import/Export -->
+      <VBox alignment="CENTER" spacing="20.0" styleClass="dark-card" prefWidth="600.0">
+         <Label text="💾 IMPORTAR/EXPORTAR" styleClass="title-secondary" />
+         <HBox alignment="CENTER" spacing="20.0">
+            <Button text="📤 EXPORTAR JSON" styleClass="modern-button" onAction="#handleExportJSON" />
+            <Button text="📤 EXPORTAR CSV" styleClass="modern-button" onAction="#handleExportCSV" />
+            <Button text="📥 IMPORTAR JSON" styleClass="modern-button" onAction="#handleImportJSON" />
+            <Button text="📥 IMPORTAR CSV" styleClass="modern-button" onAction="#handleImportCSV" />
+         </HBox>
+      </VBox>
+
       <!-- Start Battle -->
       <Button fx:id="startBattleButton" text="⚔️ INICIAR BATALHA" styleClass="accent-button" onAction="#handleStartBattle" prefWidth="300.0" />
    </VBox>
-</StackPane>
+</ScrollPane>

@@ -52,12 +52,14 @@
 - [ ] Efeitos sonoros para ações de batalha
 - [ ] Tema escuro/claro customizável
 - [ ] Salvamento automático de configurações
+- ✅ Interface responsiva com scroll para telas menores
 
 ## 🔧 Funcionalidades Avançadas
 - [ ] Sistema de conquistas/realizações
 - [ ] Estatísticas detalhadas de batalhas
 - [ ] Modo torneio com múltiplas rodadas
 - [ ] Sistema de ranking online (futuro)
+- ✅ Importação e exportação de times em CSV e JSON
 
 ## 🐛 Correções e Otimizações
 - [ ] Resolver erro NSTrackingRectTag no macOS

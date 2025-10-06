@@ -34,6 +34,15 @@ dependencies {
     
     // Animation and effects
     implementation 'org.controlsfx:controlsfx:11.1.2'
+
+    // Jackson for JSON processing
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
+
+    // OpenCSV for CSV processing
+    implementation 'com.opencsv:opencsv:5.7.1'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

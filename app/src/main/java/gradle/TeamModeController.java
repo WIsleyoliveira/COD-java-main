@@ -7,12 +7,17 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import com.opencsv.exceptions.CsvException;
 
 public class TeamModeController implements Initializable {
 
@@ -342,6 +347,78 @@ public class TeamModeController implements Initializable {
         } else {
             // Start automatic battle mode
             MainApp.startTeamBattle(alliedTeam, enemyTeam, false);
+        }
+    }
+
+    @FXML
+    private void handleExportJSON() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Exportar para JSON");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files", "*.json"));
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            try {
+                ImportExportUtil.exportToJSON(alliedTeam, enemyTeam, file.getAbsolutePath());
+                showAlert("Exportação Concluída", "Times exportados para JSON com sucesso!", Alert.AlertType.INFORMATION);
+            } catch (IOException e) {
+                showAlert("Erro", "Falha ao exportar: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
+        }
+    }
+
+    @FXML
+    private void handleExportCSV() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Exportar para CSV");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files", "*.csv"));
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            try {
+                ImportExportUtil.exportToCSV(alliedTeam, enemyTeam, file.getAbsolutePath());
+                showAlert("Exportação Concluída", "Times exportados para CSV com sucesso!", Alert.AlertType.INFORMATION);
+            } catch (IOException e) {
+                showAlert("Erro", "Falha ao exportar: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
+        }
+    }
+
+    @FXML
+    private void handleImportJSON() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Importar de JSON");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files", "*.json"));
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            try {
+                ImportExportUtil.TeamData data = ImportExportUtil.importFromJSON(file.getAbsolutePath());
+                alliedTeam = data.alliedTeam;
+                enemyTeam = data.enemyTeam;
+                updateTeamDisplay();
+                updateStartButton();
+                showAlert("Importação Concluída", "Times importados de JSON com sucesso!", Alert.AlertType.INFORMATION);
+            } catch (IOException e) {
+                showAlert("Erro", "Falha ao importar: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
+        }
+    }
+
+    @FXML
+    private void handleImportCSV() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Importar de CSV");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files", "*.csv"));
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            try {
+                ImportExportUtil.TeamData data = ImportExportUtil.importFromCSV(file.getAbsolutePath());
+                alliedTeam = data.alliedTeam;
+                enemyTeam = data.enemyTeam;
+                updateTeamDisplay();
+                updateStartButton();
+                showAlert("Importação Concluída", "Times importados de CSV com sucesso!", Alert.AlertType.INFORMATION);
+            } catch (IOException | CsvException e) {
+                showAlert("Erro", "Falha ao importar: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
         }
     }
 
