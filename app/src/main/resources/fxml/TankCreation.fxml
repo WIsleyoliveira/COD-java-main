@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Rectangle?>
+
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gradle.TankCreationController">
+   <!-- Background -->
+   <Rectangle fill="transparent" height="800.0" width="1200.0" styleClass="animated-background" />
+   
+   <VBox alignment="CENTER" spacing="30.0" styleClass="main-container">
+      <padding>
+         <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+      </padding>
+      
+      <!-- Header -->
+      <VBox alignment="CENTER" spacing="15.0" styleClass="fade-in">
+         <Text text="🛠️ CRIAÇÃO DE TANQUES" styleClass="title-primary" />
+         <Label text="Configure e personalize seu tanque de combate" styleClass="subtitle" />
+         
+         <!-- Navigation -->
+         <HBox alignment="CENTER" spacing="20.0">
+            <Button fx:id="backButton" text="← VOLTAR" styleClass="nav-button" onAction="#handleBack" />
+            <Rectangle width="2.0" height="25.0" fill="rgba(255,255,255,0.3)" />
+            <Label fx:id="modeLabel" text="Modo: CRIAÇÃO" styleClass="stat-label" />
+         </HBox>
+      </VBox>
+      
+      <!-- Main Content -->
+      <HBox alignment="CENTER" spacing="40.0" prefHeight="600.0">
+         
+         <!-- Form Panel -->
+         <VBox spacing="25.0" styleClass="dark-card slide-in-left" prefWidth="450.0">
+            <Label text="📋 CONFIGURAÇÕES" styleClass="title-secondary" />
+            
+            <!-- Tank Type Selection -->
+            <VBox spacing="10.0">
+               <Label text="🎯 Tipo de Tanque:" styleClass="stat-label" />
+               <HBox spacing="15.0">
+                  <ToggleButton fx:id="allyToggle" text="🤝 ALIADO" styleClass="accent-button" selected="true" />
+                  <ToggleButton fx:id="enemyToggle" text="⚔️ INIMIGO" styleClass="danger-button" />
+               </HBox>
+            </VBox>
+            
+            <!-- Tank Class Selection -->
+            <VBox spacing="10.0">
+               <Label text="⚖️ Classe do Tanque:" styleClass="stat-label" />
+               <HBox spacing="15.0">
+                  <ToggleButton fx:id="lightToggle" text="⚡ LEVE" styleClass="modern-button" selected="true" />
+                  <ToggleButton fx:id="mediumToggle" text="⚔️ MÉDIO" styleClass="modern-button" />
+                  <ToggleButton fx:id="heavyToggle" text="🛡️ PESADO" styleClass="modern-button" />
+               </HBox>
+            </VBox>
+            
+            <!-- Tank Name -->
+            <VBox spacing="10.0">
+               <Label text="🏷️ Codinome do Tanque:" styleClass="stat-label" />
+               <TextField fx:id="tankNameField" promptText="Digite o codinome..." styleClass="modern-text-field" />
+            </VBox>
+            
+            <!-- Stats Configuration -->
+            <Label text="⚙️ ATRIBUTOS" styleClass="title-secondary" />
+            
+
+         </VBox>
+         
+         <!-- Preview Panel -->
+         <VBox spacing="20.0" styleClass="dark-card slide-in-right" prefWidth="500.0">
+            <Label text="👁️ PREVIEW" styleClass="title-secondary" />
+            
+            <!-- Tank Visual -->
+            <VBox fx:id="tankPreview" alignment="CENTER" spacing="15.0" styleClass="tank-card" prefHeight="200.0">
+               <Label fx:id="previewTitle" text="🚗 MEU TANQUE" styleClass="title-secondary" />
+               <Label fx:id="previewType" text="🤝 ALIADO - ⚡ LEVE" styleClass="stat-label" />
+               
+               <!-- Tank ASCII Art Placeholder -->
+               <Label fx:id="tankAscii" text="    ████████\n   ██      ██\n  ████████████\n  ██  ██  ██" styleClass="stat-value" 
+                      style="-fx-font-family: monospace; -fx-font-size: 14px;" />
+            </VBox>
+            
+            <!-- Stats Display -->
+            <VBox spacing="10.0">
+               <Label text="📊 ESTATÍSTICAS FINAIS" styleClass="stat-label" />
+               
+               <HBox alignment="CENTER_LEFT" spacing="10.0">
+                  <Label text="🛡️ Blindagem:" styleClass="stat-label" style="-fx-font-size: 12px;" />
+                  <ProgressBar fx:id="previewArmorBar" progress="0.5" prefWidth="100.0" />
+                  <Label fx:id="previewArmorValue" text="50" styleClass="stat-value" style="-fx-font-size: 12px;" />
+               </HBox>
+               
+               <HBox alignment="CENTER_LEFT" spacing="10.0">
+                  <Label text="⚡ Velocidade:" styleClass="stat-label" style="-fx-font-size: 12px;" />
+                  <ProgressBar fx:id="previewSpeedBar" progress="0.5" prefWidth="100.0" />
+                  <Label fx:id="previewSpeedValue" text="50" styleClass="stat-value" style="-fx-font-size: 12px;" />
+               </HBox>
+               
+               <HBox alignment="CENTER_LEFT" spacing="10.0">
+                  <Label text="💥 Poder de Fogo:" styleClass="stat-label" style="-fx-font-size: 12px;" />
+                  <ProgressBar fx:id="previewFirepowerBar" progress="0.5" prefWidth="100.0" />
+                  <Label fx:id="previewFirepowerValue" text="50" styleClass="stat-value" style="-fx-font-size: 12px;" />
+               </HBox>
+            </VBox>
+            
+            <!-- Class Benefits -->
+            <VBox spacing="10.0" styleClass="card">
+               <Label text="💡 BÔNUS DA CLASSE" styleClass="stat-label" />
+               <Label fx:id="classBonusLabel" text="⚡ Leve: +20% Velocidade, -10% Blindagem" styleClass="subtitle" wrapText="true" />
+            </VBox>
+            
+            <!-- Random Generator -->
+            <HBox spacing="15.0" alignment="CENTER">
+               <Button fx:id="randomizeButton" text="🎲 ALEATÓRIO" styleClass="accent-button" onAction="#handleRandomize" />
+               <Button fx:id="resetButton" text="🔄 RESETAR" styleClass="nav-button" onAction="#handleReset" />
+            </HBox>
+         </VBox>
+      </HBox>
+      
+      <!-- Action Buttons -->
+      <HBox alignment="CENTER" spacing="30.0" styleClass="bounce-in">
+         <Button fx:id="createButton" text="✅ CRIAR TANQUE" styleClass="modern-button" 
+                 onAction="#handleCreateTank" prefWidth="200.0" />
+         <Button fx:id="previewBattleButton" text="⚔️ TESTAR EM COMBATE" styleClass="accent-button" 
+                 onAction="#handlePreviewBattle" />
+         <Button fx:id="saveTemplateButton" text="💾 SALVAR MODELO" styleClass="nav-button" 
+                 onAction="#handleSaveTemplate" />
+      </HBox>
+   </VBox>
+   
+   <!-- Feedback Toast (Hidden by default) -->
+   <VBox fx:id="toastContainer" alignment="CENTER" visible="false" 
+         style="-fx-background-color: rgba(0,0,0,0.8); -fx-background-radius: 10;">
+      <Label fx:id="toastMessage" text="" styleClass="stat-label" />
+   </VBox>
+</StackPane>

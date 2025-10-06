@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Rectangle?>
+
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gradle.BattleArenaController">
+   <Rectangle fill="transparent" height="800.0" width="1200.0" styleClass="animated-background" />
+   
+   <VBox alignment="TOP_CENTER" spacing="20.0" styleClass="main-container">
+      <padding>
+         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      </padding>
+      
+      <!-- Header -->
+      <VBox alignment="CENTER" spacing="10.0" styleClass="fade-in">
+         <Text text="⚔️ ARENA DE COMBATE" styleClass="title-primary" />
+         <Label fx:id="battleStatusLabel" text="Preparando para a batalha..." styleClass="subtitle" />
+         
+         <HBox alignment="CENTER" spacing="15.0">
+            <Button fx:id="backButton" text="← VOLTAR" styleClass="nav-button" onAction="#handleBack" />
+            <Rectangle width="2.0" height="25.0" fill="rgba(255,255,255,0.3)" />
+            <Label fx:id="roundLabel" text="Rodada: 1" styleClass="stat-label" />
+         </HBox>
+      </VBox>
+      
+      <!-- Battle Status Bar -->
+      <HBox alignment="CENTER" spacing="20.0" styleClass="card" prefHeight="80.0">
+         <VBox alignment="CENTER" spacing="5.0">
+            <Label text="🏆 VITÓRIAS" styleClass="stat-label" />
+            <Label fx:id="winsLabel" text="0" styleClass="stat-value" />
+         </VBox>
+         <Rectangle width="2.0" height="50.0" fill="#555555" />
+         <VBox alignment="CENTER" spacing="5.0">
+            <Label text="💀 DERROTAS" styleClass="stat-label" />
+            <Label fx:id="lossesLabel" text="0" styleClass="stat-value" />
+         </VBox>
+      </HBox>
+      
+      <!-- Combat Area -->
+      <HBox alignment="CENTER" spacing="30.0" prefHeight="300.0">
+         
+         <!-- Player Tank Panel -->
+         <VBox spacing="15.0" styleClass="dark-card slide-in-left" prefWidth="350.0">
+            <Label text="🤝 SEU TANQUE" styleClass="title-secondary" />
+            
+            <VBox fx:id="playerTankInfo" spacing="10.0" styleClass="tank-card">
+               <Label fx:id="playerTankName" text="Meu Tanque" styleClass="stat-label" style="-fx-font-size: 16px;" />
+               <Label fx:id="playerTankType" text="⚡ LEVE" styleClass="subtitle" />
+               
+               <Label fx:id="playerTankAscii" text="   ▄██▄\n  ██████\n ████████\n   ██ ██" 
+                      styleClass="stat-value" style="-fx-font-family: monospace; -fx-font-size: 12px;" />
+            </VBox>
+            
+            <!-- Health Bar -->
+            <VBox spacing="8.0">
+               <HBox alignment="CENTER_LEFT" spacing="10.0">
+                  <Label text="❤️ Vida:" styleClass="stat-label" />
+                  <Label fx:id="playerHealthLabel" text="100/100" styleClass="stat-value" />
+               </HBox>
+               <ProgressBar fx:id="playerHealthBar" progress="1.0" styleClass="modern-progress-bar" prefWidth="300.0" />
+            </VBox>
+         </VBox>
+         
+         <!-- VS Separator -->
+         <VBox alignment="CENTER" spacing="20.0" prefWidth="100.0">
+            <Text text="VS" styleClass="title-primary" style="-fx-font-size: 36px;" />
+            <Label fx:id="battleActionLabel" text="Aguardando..." styleClass="subtitle" />
+         </VBox>
+         
+         <!-- Enemy Tank Panel -->
+         <VBox spacing="15.0" styleClass="dark-card slide-in-right" prefWidth="350.0">
+            <Label text="⚔️ INIMIGO" styleClass="title-secondary" />
+            
+            <VBox fx:id="enemyTankInfo" spacing="10.0" styleClass="tank-card">
+               <Label fx:id="enemyTankName" text="Inimigo" styleClass="stat-label" style="-fx-font-size: 16px;" />
+               <Label fx:id="enemyTankType" text="⚔️ MÉDIO" styleClass="subtitle" />
+               
+               <Label fx:id="enemyTankAscii" text="  ████████\n ██      ██\n████████████\n ██  ██  ██" 
+                      styleClass="stat-value" style="-fx-font-family: monospace; -fx-font-size: 12px;" />
+            </VBox>
+            
+            <!-- Health Bar -->
+            <VBox spacing="8.0">
+               <HBox alignment="CENTER_LEFT" spacing="10.0">
+                  <Label text="❤️ Vida:" styleClass="stat-label" />
+                  <Label fx:id="enemyHealthLabel" text="100/100" styleClass="stat-value" />
+               </HBox>
+               <ProgressBar fx:id="enemyHealthBar" progress="1.0" styleClass="modern-progress-bar" prefWidth="300.0" />
+            </VBox>
+         </VBox>
+      </HBox>
+      
+      <!-- Action Buttons -->
+      <HBox alignment="CENTER" spacing="20.0" styleClass="bounce-in">
+         <Button fx:id="attackButton" text="💥 ATACAR" styleClass="modern-button" 
+                 onAction="#handleAttack" prefWidth="120.0" />
+         <Button fx:id="defendButton" text="🛡️ DEFENDER" styleClass="accent-button" 
+                 onAction="#handleDefend" prefWidth="120.0" />
+         <Button fx:id="specialButton" text="⚡ ESPECIAL" styleClass="danger-button" 
+                 onAction="#handleSpecialAttack" prefWidth="120.0" />
+         <Button fx:id="surrenderButton" text="🏳️ DESISTIR" styleClass="nav-button" 
+                 onAction="#handleSurrender" prefWidth="120.0" />
+      </HBox>
+      
+      <!-- Battle Log -->
+      <VBox spacing="10.0" styleClass="card" prefHeight="120.0">
+         <Label text="📜 LOG DE COMBATE" styleClass="stat-label" />
+         <ScrollPane fx:id="logScrollPane" styleClass="modern-scroll-pane" prefHeight="90.0" fitToWidth="true">
+            <VBox fx:id="battleLogContainer" spacing="5.0" />
+         </ScrollPane>
+      </VBox>
+   </VBox>
+   
+   <!-- Result Dialog (Hidden by default) -->
+   <VBox fx:id="resultDialog" alignment="CENTER" spacing="20.0" visible="false" 
+         style="-fx-background-color: rgba(0,0,0,0.9); -fx-background-radius: 15;" 
+         prefWidth="400.0" prefHeight="300.0">
+      <Label fx:id="resultTitle" text="VITÓRIA!" styleClass="title-primary" />
+      <Label fx:id="resultMessage" text="Você derrotou o inimigo!" styleClass="subtitle" />
+      <HBox spacing="15.0" alignment="CENTER">
+         <Button fx:id="playAgainButton" text="🔄 JOGAR NOVAMENTE" styleClass="modern-button" 
+                 onAction="#handlePlayAgain" />
+         <Button fx:id="exitButton" text="🚪 SAIR" styleClass="nav-button" 
+                 onAction="#handleExit" />
+      </HBox>
+   </VBox>
+   
+   <!-- Toast Notification (Hidden by default) -->
+   <VBox fx:id="toastContainer" alignment="CENTER" visible="false" 
+         style="-fx-background-color: rgba(0,0,0,0.8); -fx-background-radius: 10;">
+      <Label fx:id="toastMessage" text="" styleClass="stat-label" />
+   </VBox>
+</StackPane>
