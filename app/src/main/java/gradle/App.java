@@ -1,194 +1,272 @@
-// Pacote do projeto, organizando as classes em um diretório específico
+// Declara o pacote do projeto
 package gradle;
 
-// Importações necessárias para o funcionamento da aplicação
-import java.util.ArrayList; // Para usar listas dinâmicas de objetos Tanque
-import java.util.Date; // Para registrar a data e hora de entrada dos tanques na arena
-import java.util.Scanner; // Para ler entradas do usuário via console
-import java.util.Random; // Para gerar IDs aleatórios para os tanques
+// Importa a classe ArrayList para listas
+import java.util.ArrayList;
+// Importa a classe Date para datas
+import java.util.Date;
+// Importa a classe Scanner para entrada do usuário
+import java.util.Scanner;
+// Importa a classe Random para números aleatórios
+import java.util.Random;
 
-// Classe principal da aplicação, responsável pelo menu e gerenciamento de tanques
+// Define a classe App
 public class App {
 
-    // Método simples que retorna uma saudação, usado para teste inicial
+    // Define o método getGreeting que retorna uma String
     public String getGreeting() {
+        // Retorna "Hello World!"
         return "Hello World!";
     }
 
-    // Campos da classe (atributos), embora não sejam usados diretamente na lógica principal,
-    // podem ser utilizados para armazenar dados temporários ou configurações
-    int id; // ID do tanque
-    String codinome; // Nome ou codinome do tanque
-    int blindagem; // Valor de blindagem do tanque
-    int velocidade; // Valor de velocidade do tanque
-    int poderDeFogo; // Valor de poder de fogo do tanque
-    Date horaEntradaArena; // Data e hora de entrada na arena
-    int opTanque, opAliado; // Variáveis para armazenar opções do usuário (tipo de tanque e aliado/inimigo)
+    // Declara atributo id como inteiro
+    int id;
+    // Declara atributo codinome como String
+    String codinome;
+    // Declara atributo blindagem como inteiro
+    int blindagem;
+    // Declara atributo velocidade como inteiro
+    int velocidade;
+    // Declara atributo poderDeFogo como inteiro
+    int poderDeFogo;
+    // Declara atributo horaEntradaArena como Date
+    Date horaEntradaArena;
+    // Declara atributos opTanque e opAliado como inteiros
+    int opTanque, opAliado;
 
-    // Método principal que inicia a aplicação
+    // Define o método main
     public static void main(String[] args) {
-        // Imprime uma saudação inicial
+        // Imprime a saudação
         System.out.println(new App().getGreeting());
 
-        // Inicializa o scanner para leitura de entradas do usuário
+        // Cria um Scanner para entrada
         Scanner sc = new Scanner(System.in);
 
-        // Inicializa o gerador de números aleatórios para IDs
+        // Cria um Random para IDs
         Random random = new Random();
 
-        // Listas para armazenar os tanques aliados e inimigos
+        // Cria lista para tanques aliados
         ArrayList<Tanque> tanquesAliado = new ArrayList<>();
+        // Cria lista para tanques inimigos
         ArrayList<Tanque> tanqueInimigo = new ArrayList<>();
 
-        // Instancia a classe Modos, que gerencia os modos de batalha, passando as listas de tanques
+        // Instancia Modos com listas
         Modos modos = new Modos(null, 0, 0, tanquesAliado, tanqueInimigo);
 
-        // Variável para armazenar a opção escolhida pelo usuário no menu
+        // Declara variável opcao como inteiro
         int opcao;
 
-        // Loop infinito para manter o menu ativo até o usuário encerrar
+        // Inicia loop while infinito
         while (true) {
+            // Inicia bloco try
             try {
-                // Exibe o cabeçalho do menu
+                // Imprime cabeçalho do menu
                 System.out.println("#===# Menu #===#");
 
-                // Mostra a quantidade atual de tanques aliados e inimigos
+                // Imprime quantidade de aliados
                 System.out.printf("\n Tanques Aliados: %d", tanquesAliado.size());
+                // Imprime quantidade de inimigos
                 System.out.printf("\n Tanques Inimigos: %d", tanqueInimigo.size());
 
-                // Opções do menu principal
+                // Imprime opção 1
                 System.out.println("\n(1) Criar tanque");
+                // Imprime opção 2
                 System.out.println("(2) Começar partida");
 
-                // Solicita a escolha da opção
+                // Imprime prompt para escolha
                 System.out.print("Escolha uma opção: ");
+                // Lê a opção
                 opcao = sc.nextInt();
 
-                // Estrutura switch para tratar as opções do menu
+                // Inicia switch com opcao
                 switch (opcao) {
-                    case 1: // Opção para criar um novo tanque
-                        // Limpa o buffer do scanner para evitar problemas com nextLine após nextInt
+                    // Caso 1
+                    case 1:
+                        // Limpa buffer do scanner
                         sc.nextLine();
 
-                        // Pergunta se o tanque é aliado ou inimigo
+                        // Imprime pergunta sobre aliado ou inimigo
                         System.out.println("Você quer criar um tanque aliado ou inimigo?");
+                        // Imprime opção 1
                         System.out.println("(1) Aliado");
+                        // Imprime opção 2
                         System.out.println("(2) Inimigo");
+                        // Lê opAliado
                         int opAliado = sc.nextInt();
 
-                        if (opAliado == 1) { // Se escolher aliado
-                            // Gera um ID aleatório entre 100 e 999
+                        // Se opAliado é 1
+                        if (opAliado == 1) {
+                            // Gera id aleatório
                             int id = random.nextInt(999) + 100;
 
-                            // Solicita o codinome do tanque
+                            // Imprime prompt para codinome
                             System.out.print("Digite o codinome: ");
-                            sc.nextLine(); // Limpa o buffer novamente
+                            // Limpa buffer
+                            sc.nextLine();
+                            // Lê codinome
                             String codinome = sc.nextLine();
 
-                            // Solicita os atributos do tanque
+                            // Imprime prompt para blindagem
                             System.out.print("Digite a blindagem: (Numero)");
+                            // Lê blindagem
                             int blindagem = sc.nextInt();
 
+                            // Imprime prompt para velocidade
                             System.out.print("Digite a velocidade: ");
+                            // Lê velocidade
                             int velocidade = sc.nextInt();
 
+                            // Imprime prompt para poder de fogo
                             System.out.print("Digite o poder de fogo: ");
+                            // Lê poderDeFogo
                             int poderDeFogo = sc.nextInt();
 
-                            // Solicita o tipo de tanque
+                            // Imprime opções de tipo de tanque
                             System.out.println("Escolha o tipo de tanque: \n (1) Leve \n (2) Médio \n (3) Pesado");
+                            // Lê opTanque
                             int opTanque = sc.nextInt();
 
-                            // Registra a hora de entrada
+                            // Cria Date para horaEntrada
                             Date horaEntrada = new Date();
 
-                            // Cria o tanque baseado no tipo escolhido e adiciona à lista de aliados
+                            // Se opTanque é 1
                             if (opTanque == 1) {
+                                // Adiciona Leve à lista de aliados
                                 tanquesAliado.add(new Leve(id, codinome, blindagem, velocidade, poderDeFogo, horaEntrada) {
                                 });
+                                // Imprime sucesso
                                 System.out.println("Tanque Leve adicionado com sucesso!");
+                            // Se opTanque é 2
                             } else if (opTanque == 2) {
+                                // Adiciona Medio à lista de aliados
                                 tanquesAliado.add(new Medio(id, codinome, blindagem, velocidade, poderDeFogo, horaEntrada, 0, 0, 0.0, null) {
                                 });
+                                // Imprime sucesso
                                 System.out.println("Tanque Médio adicionado com sucesso!");
+                            // Se opTanque é 3
                             } else if (opTanque == 3) {
+                                // Adiciona Pesado à lista de aliados
                                 tanquesAliado.add(new Pesado(id, codinome, blindagem, velocidade, poderDeFogo, horaEntrada) {
                                 });
+                                // Imprime sucesso
                                 System.out.println("Tanque Pesado adicionado com sucesso!");
                             }
-                        } else if (opAliado == 2) { // Se escolher inimigo
-                            // Mesmo processo para tanques inimigos
+                        // Se opAliado é 2
+                        } else if (opAliado == 2) {
+                            // Gera id aleatório
                             int id = random.nextInt(999) + 100;
 
+                            // Imprime prompt para codinome
                             System.out.print("Digite o codinome: ");
-                            sc.nextLine(); // Limpa o buffer
+                            // Limpa buffer
+                            sc.nextLine();
+                            // Lê codinome
                             String codinome = sc.nextLine();
 
+                            // Imprime prompt para blindagem
                             System.out.print("Digite a blindagem: (Numero)");
+                            // Lê blindagem
                             int blindagem = sc.nextInt();
 
+                            // Imprime prompt para velocidade
                             System.out.print("Digite a velocidade: ");
+                            // Lê velocidade
                             int velocidade = sc.nextInt();
 
+                            // Imprime prompt para poder de fogo
                             System.out.print("Digite o poder de fogo: ");
+                            // Lê poderDeFogo
                             int poderDeFogo = sc.nextInt();
 
+                            // Imprime opções de tipo de tanque
                             System.out.println("Escolha o tipo de tanque: \n (1) Leve \n (2) Médio \n (3) Pesado");
+                            // Lê opTanque
                             int opTanque = sc.nextInt();
 
+                            // Cria Date para horaEntrada
                             Date horaEntrada = new Date();
 
+                            // Se opTanque é 1
                             if (opTanque == 1) {
+                                // Adiciona Leve à lista de inimigos
                                 tanqueInimigo.add(new Leve(id, codinome, blindagem, velocidade, poderDeFogo, horaEntrada) {
                                 });
+                                // Imprime sucesso
                                 System.out.println("Tanque Leve inimigo adicionado com sucesso!");
+                            // Se opTanque é 2
                             } else if (opTanque == 2) {
+                                // Adiciona Medio à lista de inimigos
                                 tanqueInimigo.add(new Medio(id, codinome, blindagem, velocidade, poderDeFogo, horaEntrada, 0, 0, 0.0, null) {
                                 });
+                                // Imprime sucesso
                                 System.out.println("Tanque Médio inimigo adicionado com sucesso!");
+                            // Se opTanque é 3
                             } else if (opTanque == 3) {
+                                // Adiciona Pesado à lista de inimigos
                                 tanqueInimigo.add(new Pesado(id, codinome, blindagem, velocidade, poderDeFogo, horaEntrada) {
                                 });
+                                // Imprime sucesso
                                 System.out.println("Tanque Pesado inimigo adicionado com sucesso!");
                             }
                         }
-                        break; // Fim do case 1
+                        // Sai do case
+                        break;
 
-                    case 2: // Opção para começar uma partida
-                        // Solicita o modo de jogo
+                    // Caso 2
+                    case 2:
+                        // Imprime seleção de modo
                         System.out.println("Selecione um modo");
+                        // Imprime opção 1
                         System.out.println("(1) Treino");
+                        // Imprime opção 2
                         System.out.println("(2) PvP");
+                        // Imprime opção 3
                         System.out.println("(3) TvT");
 
+                        // Lê opModo
                         int opModo = sc.nextInt();
 
-                        // Chama o método correspondente na classe Modos baseado na escolha
+                        // Se opModo é 1
                         if (opModo == 1) {
+                            // Chama modoTreino
                             modos.modoTreino();
+                        // Se opModo é 2
                         } else if (opModo == 2) {
+                            // Chama modoPvP
                             modos.modoPvP();
+                        // Se opModo é 3
                         } else if (opModo == 3) {
+                            // Chama modoTvT
                             modos.modoTvT();
                         }
-                        break; // Fim do case 2
+                        // Sai do case
+                        break;
 
-                    default: // Caso a opção seja inválida
+                    // Caso default
+                    default:
+                        // Imprime opção inválida
                         System.out.println("Opção inválida! Tente novamente.");
+                        // Sai do case
                         break;
                 }
+            // Catch para InputMismatchException
             } catch (java.util.InputMismatchException e) {
-                // Trata entrada inválida (não numérica)
+                // Imprime entrada inválida
                 System.out.println("Entrada inválida! Por favor, digite um número válido.");
-                sc.nextLine(); // Limpa o buffer para evitar loop infinito
+                // Limpa buffer
+                sc.nextLine();
+            // Catch para NoSuchElementException
             } catch (java.util.NoSuchElementException e) {
-                // Trata fim de entrada (ex: Ctrl+D), encerrando o programa
+                // Imprime encerrando
                 System.out.println("\nEncerrando o programa...");
+                // Sai do loop
                 break;
+            // Catch para Exception geral
             } catch (Exception e) {
-                // Trata qualquer outro erro inesperado
+                // Imprime erro inesperado
                 System.out.println("Erro inesperado: " + e.getMessage());
-                sc.nextLine(); // Limpa o buffer
+                // Limpa buffer
+                sc.nextLine();
             }
         }
     }

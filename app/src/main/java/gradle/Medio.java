@@ -1,61 +1,81 @@
-// Pacote do projeto, organizando as classes relacionadas aos tanques
+// Declara o pacote do projeto
 package gradle;
 
-// Importações necessárias para o funcionamento da classe
-import java.time.Duration; // Para durações de recarga
-import java.util.Date; // Para datas
+// Importa a classe Duration para durações
+import java.time.Duration;
+// Importa a classe Date para datas
+import java.util.Date;
 
-// Classe Medio, subclasse de Tanque, representa tanques médios com equilíbrio entre atributos
+// Define a classe Medio que herda de Tanque
 public class Medio extends Tanque {
 
-    // Atributos específicos para tanques médios
-    int nome; // Identificador adicional
-    int danoBase; // Dano base das armas
-    double alcanceEficaz; // Alcance efetivo
-    Duration recarga; // Tempo de recarga
+    // Declara atributo nome como inteiro
+    int nome;
+    // Declara atributo danoBase como inteiro
+    int danoBase;
+    // Declara atributo alcanceEficaz como double
+    double alcanceEficaz;
+    // Declara atributo recarga como Duration
+    Duration recarga;
 
-    // Construtor completo com todos os parâmetros, incluindo os específicos
+    // Define o construtor completo da classe Medio
     public Medio(int id, String codinome, int blindagem, int velocidade, int poderDeFogo, Date horaEntradaArena,
             int nome, int danoBase, double alcanceEficaz, Duration recarga) {
-        // Chama o construtor da classe pai
+        // Chama o construtor da classe pai Tanque
         super(id, codinome, blindagem, velocidade, poderDeFogo, horaEntradaArena);
-        // Inicializa atributos específicos
+        // Inicializa o atributo nome
         this.nome = nome;
+        // Inicializa o atributo danoBase
         this.danoBase = danoBase;
+        // Inicializa o atributo alcanceEficaz
         this.alcanceEficaz = alcanceEficaz;
+        // Inicializa o atributo recarga
         this.recarga = recarga;
     }
 
-    // Construtor padrão
+    // Define o construtor padrão da classe Medio
     public Medio() {
+        // Chama o construtor padrão da classe pai
         super();
     }
 
-    // Implementa o método abstrato para definir características
+    // Implementa o método Caracterisrticas
     @Override
     public void Caracterisrticas() {
-        danoBase = 15; // Dano base maior que o leve
+        // Define danoBase como 15
+        danoBase = 15;
     }
 
-    // Sobrescreve o método para características de armas
+    // Sobrescreve o método armasCaract
     @Override
     void armasCaract(String Metralhadora, String Missil, String Canhao, int escolha) {
-        // TODO: Método gerado automaticamente, pode ser refinado
+        // Chama o método da classe pai
         super.armasCaract(Metralhadora, Missil, Canhao, escolha);
 
-        // Define características baseadas na arma
-        if (escolha == 1) { // Metralhadora
-            danoBase *= 4; // Multiplica por 4
-            alcanceEficaz = 5; // Alcance menor
-            recarga = Duration.ofSeconds(5); // Recarga média
-        } else if (escolha == 2) { // Míssil
-            danoBase *= 8; // Multiplica por 8
-            alcanceEficaz = 6; // Alcance um pouco maior
-            recarga = Duration.ofSeconds(10); // Recarga mais longa
-        } else if (escolha == 3) { // Canhão
-            danoBase *= 12; // Mesmo multiplicador
-            alcanceEficaz = 20; // Alcance alto
-            recarga = Duration.ofSeconds(14); // Recarga longa
+        // Verifica se a escolha é 1 (Metralhadora)
+        if (escolha == 1) {
+            // Multiplica danoBase por 4
+            danoBase *= 4;
+            // Define alcanceEficaz como 5
+            alcanceEficaz = 5;
+            // Define recarga como 5 segundos
+            recarga = Duration.ofSeconds(5);
+        // Verifica se a escolha é 2 (Míssil)
+        } else if (escolha == 2) {
+            // Multiplica danoBase por 8
+            danoBase *= 8;
+            // Define alcanceEficaz como 6
+            alcanceEficaz = 6;
+            // Define recarga como 10 segundos
+            recarga = Duration.ofSeconds(10);
+        // Verifica se a escolha é 3 (Canhão)
+        } else if (escolha == 3) {
+            // Multiplica danoBase por 12
+            danoBase *= 12;
+            // Define alcanceEficaz como 20
+            alcanceEficaz = 20;
+            // Define recarga como 14 segundos
+            recarga = Duration.ofSeconds(14);
         }
     }
 

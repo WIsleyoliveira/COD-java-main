@@ -1,138 +1,168 @@
-// Pacote do projeto, organizando as classes relacionadas aos tanques
+// Declara o pacote do projeto
 package gradle;
 
-// Importações necessárias para o funcionamento da classe
-import java.util.ArrayList; // Embora não usado diretamente aqui, pode ser útil para listas de tanques
-import java.util.Date; // Para registrar datas e horas, como entrada na arena
+// Importa a classe ArrayList para listas
+import java.util.ArrayList;
+// Importa a classe Date para datas
+import java.util.Date;
 
-// Classe abstrata que representa um tanque genérico no jogo
-// Serve como base para subclasses como Leve, Medio e Pesado
+// Define a classe abstrata Tanque
 public abstract class Tanque {
 
-    // Atributos privados para encapsulamento dos dados do tanque
-    private int id; // Identificador único do tanque
-    private String codinome; // Nome ou codinome do tanque
-    private int blindagem; // Valor de blindagem, afeta resistência a danos
-    private int velocidade; // Valor de velocidade, afeta mobilidade
-    private int poderDeFogo; // Valor de poder de fogo, afeta dano causado
-    private int vida = 100; // Pontos de vida do tanque, padrão 100
-    private Date horaEntradaArena; // Data e hora de entrada na arena
-    private String arma = "Metralhadora"; // Arma equipada, padrão Metralhadora
+    // Declara atributo id como privado inteiro
+    private int id;
+    // Declara atributo codinome como privado String
+    private String codinome;
+    // Declara atributo blindagem como privado inteiro
+    private int blindagem;
+    // Declara atributo velocidade como privado inteiro
+    private int velocidade;
+    // Declara atributo poderDeFogo como privado inteiro
+    private int poderDeFogo;
+    // Declara atributo vida como privado inteiro inicializado com 100
+    private int vida = 100;
+    // Declara atributo horaEntradaArena como privado Date
+    private Date horaEntradaArena;
+    // Declara atributo arma como privado String inicializado com "Metralhadora"
+    private String arma = "Metralhadora";
 
-    // Construtor padrão sem parâmetros
+    // Define o construtor padrão da classe Tanque
     public Tanque() {
-        // Inicializa um tanque vazio, atributos podem ser setados posteriormente
+        // Corpo vazio do construtor
     }
 
-    // Métodos getters e setters para acessar e modificar os atributos privados
-
-    // Retorna o ID do tanque
+    // Define o método getId que retorna o id
     public int getId() {
+        // Retorna o valor do atributo id
         return id;
     }
 
-    // Define o ID do tanque
+    // Define o método setId que define o id
     public void setId(int id) {
+        // Atribui o valor passado ao atributo id
         this.id = id;
     }
 
-    // Retorna o codinome do tanque
+    // Define o método getCodinome que retorna o codinome
     public String getCodinome() {
+        // Retorna o valor do atributo codinome
         return codinome;
     }
 
-    // Define o codinome do tanque
+    // Define o método setCodinome que define o codinome
     public void setCodinome(String codinome) {
+        // Atribui o valor passado ao atributo codinome
         this.codinome = codinome;
     }
 
-    // Retorna o valor de blindagem
+    // Define o método getBlindagem que retorna a blindagem
     public int getBlindagem() {
+        // Retorna o valor do atributo blindagem
         return blindagem;
     }
 
-    // Define o valor de blindagem
+    // Define o método setBlindagem que define a blindagem
     public void setBlindagem(int blindagem) {
+        // Atribui o valor passado ao atributo blindagem
         this.blindagem = blindagem;
     }
 
-    // Retorna o valor de velocidade
+    // Define o método getVelocidade que retorna a velocidade
     public int getVelocidade() {
+        // Retorna o valor do atributo velocidade
         return velocidade;
     }
 
-    // Define o valor de velocidade
+    // Define o método setVelocidade que define a velocidade
     public void setVelocidade(int velocidade) {
+        // Atribui o valor passado ao atributo velocidade
         this.velocidade = velocidade;
     }
 
-    // Retorna o valor de poder de fogo
+    // Define o método getPoderDeFogo que retorna o poderDeFogo
     public int getPoderDeFogo() {
+        // Retorna o valor do atributo poderDeFogo
         return poderDeFogo;
     }
 
-    // Define o valor de poder de fogo
+    // Define o método setPoderDeFogo que define o poderDeFogo
     public void setPoderDeFogo(int poderDeFogo) {
+        // Atribui o valor passado ao atributo poderDeFogo
         this.poderDeFogo = poderDeFogo;
     }
 
-    // Retorna a data e hora de entrada na arena
+    // Define o método getHoraEntradaArena que retorna a horaEntradaArena
     public Date getHoraEntradaArena() {
+        // Retorna o valor do atributo horaEntradaArena
         return horaEntradaArena;
     }
 
-    // Define a data e hora de entrada na arena
+    // Define o método setHoraEntradaArena que define a horaEntradaArena
     public void setHoraEntradaArena(Date horaEntradaArena) {
+        // Atribui o valor passado ao atributo horaEntradaArena
         this.horaEntradaArena = horaEntradaArena;
     }
 
-    // Retorna os pontos de vida atuais
+    // Define o método getVida que retorna a vida
     public int getVida() {
+        // Retorna o valor do atributo vida
         return vida;
     }
 
-    // Define os pontos de vida
+    // Define o método setVida que define a vida
     public void setVida(int vida) {
+        // Atribui o valor passado ao atributo vida
         this.vida = vida;
     }
 
-    // Retorna a arma equipada
+    // Define o método getArma que retorna a arma
     public String getArma() {
+        // Retorna o valor do atributo arma
         return arma;
     }
 
-    // Define a arma equipada
+    // Define o método setArma que define a arma
     public void setArma(String arma) {
+        // Atribui o valor passado ao atributo arma
         this.arma = arma;
     }
 
-    // Método que retorna o poder de fogo como ataque (alias para getPoderDeFogo)
+    // Define o método getAtaque que retorna o poderDeFogo
     public int getAtaque() {
+        // Retorna o valor do atributo poderDeFogo
         return poderDeFogo;
     }
 
-    // Construtor parametrizado para inicializar um tanque com valores específicos
+    // Define o construtor parametrizado da classe Tanque
     public Tanque(int id, String codinome, int blindagem, int velocidade, int poderDeFogo, Date horaEntradaArena) {
+        // Atribui o parâmetro id ao atributo id
         this.id = id;
+        // Atribui o parâmetro codinome ao atributo codinome
         this.codinome = codinome;
+        // Atribui o parâmetro blindagem ao atributo blindagem
         this.blindagem = blindagem;
+        // Atribui o parâmetro velocidade ao atributo velocidade
         this.velocidade = velocidade;
+        // Atribui o parâmetro poderDeFogo ao atributo poderDeFogo
         this.poderDeFogo = poderDeFogo;
+        // Atribui o parâmetro horaEntradaArena ao atributo horaEntradaArena
         this.horaEntradaArena = horaEntradaArena;
     }
 
-    // Método vazio para características de armas (a ser implementado nas subclasses)
+    // Define o método armasCaract
     void armasCaract(String Metralhadora, String Missil, String Canhao, int escolha) {
-        // Este método pode ser usado para definir características baseadas na arma escolhida
+        // Corpo vazio do método
     }
 
-    // Método que retorna o loadout baseado na escolha (simples retorno da escolha)
+    // Define o método Armas que retorna um inteiro
     int Armas(int escolha) {
+        // Declara variável loadout e atribui o valor de escolha
         int loadout = escolha;
+        // Retorna o valor de loadout
         return loadout;
     }
 
-    // Método abstrato que deve ser implementado nas subclasses para definir características específicas
+    // Declara o método abstrato Caracterisrticas
     public abstract void Caracterisrticas();
 
 }

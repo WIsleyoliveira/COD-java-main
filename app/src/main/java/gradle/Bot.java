@@ -1,8 +1,7 @@
-// Pacote do projeto
+// Declara o pacote do projeto
 package gradle;
 
-// Classe Bot, destinada a representar bots ou tanques controlados por IA
-// Atualmente vazia, a ser implementada para modos automáticos de batalha
+// Define a classe Bot
 public class Bot {
 
 }

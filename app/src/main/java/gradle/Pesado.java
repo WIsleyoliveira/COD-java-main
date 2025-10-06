@@ -1,53 +1,72 @@
-// Pacote do projeto
+// Declara o pacote do projeto
 package gradle;
 
-// Importações
-import java.time.Duration; // Para durações
-import java.util.Date; // Para datas
+// Importa a classe Duration para durações
+import java.time.Duration;
+// Importa a classe Date para datas
+import java.util.Date;
 
-// Classe Pesado, subclasse de Tanque, representa tanques pesados com alta blindagem e poder de fogo
+// Define a classe Pesado que herda de Tanque
 public class Pesado extends Tanque {
 
-    // Atributos específicos
-    int nome; // Identificador
-    int danoBase; // Dano base alto
-    double alcanceEficaz; // Alcance efetivo
-    Duration recarga; // Recarga longa devido ao peso
+    // Declara atributo nome como inteiro
+    int nome;
+    // Declara atributo danoBase como inteiro
+    int danoBase;
+    // Declara atributo alcanceEficaz como double
+    double alcanceEficaz;
+    // Declara atributo recarga como Duration
+    Duration recarga;
 
-    // Construtor parametrizado
+    // Define o construtor parametrizado da classe Pesado
     public Pesado(int id, String codinome, int blindagem, int velocidade, int poderDeFogo, Date horaEntradaArena) {
+        // Chama o construtor da classe pai Tanque
         super(id, codinome, blindagem, velocidade, poderDeFogo, horaEntradaArena);
     }
 
-    // Construtor padrão
+    // Define o construtor padrão da classe Pesado
     public Pesado() {
+        // Chama o construtor padrão da classe pai Tanque
         super();
     }
 
-    // Sobrescreve método para armas
+    // Sobrescreve o método armasCaract da classe pai
     @Override
     void armasCaract(String Metralhadora, String Missil, String Canhao, int escolha) {
+        // Chama o método armasCaract da classe pai
         super.armasCaract(Metralhadora, Missil, Canhao, escolha);
 
-        // Características para armas pesadas
-        if (escolha == 1) { // Metralhadora
-            danoBase *= 3; // Menos dano relativo
-            alcanceEficaz = 6; // Alcance curto
-            recarga = Duration.ofSeconds(4); // Recarga rápida
-        } else if (escolha == 2) { // Míssil
-            danoBase *= 10; // Dano alto
-            alcanceEficaz = 8; // Alcance médio
-            recarga = Duration.ofSeconds(12); // Recarga longa
-        } else if (escolha == 3) { // Canhão
-            danoBase *= 15; // Dano muito alto
-            alcanceEficaz = 25; // Alcance longo
-            recarga = Duration.ofSeconds(18); // Recarga muito longa
+        // Verifica se a escolha é 1 (Metralhadora)
+        if (escolha == 1) {
+            // Multiplica danoBase por 3
+            danoBase *= 3;
+            // Define alcanceEficaz como 6
+            alcanceEficaz = 6;
+            // Define recarga como 4 segundos
+            recarga = Duration.ofSeconds(4);
+        // Verifica se a escolha é 2 (Míssil)
+        } else if (escolha == 2) {
+            // Multiplica danoBase por 10
+            danoBase *= 10;
+            // Define alcanceEficaz como 8
+            alcanceEficaz = 8;
+            // Define recarga como 12 segundos
+            recarga = Duration.ofSeconds(12);
+        // Verifica se a escolha é 3 (Canhão)
+        } else if (escolha == 3) {
+            // Multiplica danoBase por 15
+            danoBase *= 15;
+            // Define alcanceEficaz como 25
+            alcanceEficaz = 25;
+            // Define recarga como 18 segundos
+            recarga = Duration.ofSeconds(18);
         }
     }
 
-    // Implementa características
+    // Implementa o método Caracterisrticas
     @Override
     public void Caracterisrticas() {
-        danoBase = 20; // Dano base mais alto
+        // Define danoBase como 20
+        danoBase = 20;
     }
 }

@@ -1,56 +1,73 @@
-// Pacote do projeto, organizando as classes relacionadas aos tanques
+// Declara o pacote do projeto
 package gradle;
 
-// Importações necessárias para o funcionamento da classe
-import java.time.Duration; // Para representar durações de tempo, como recarga de armas
-import java.util.Date; // Para datas, herdado da classe pai
+// Importa a classe Duration para representar durações de tempo
+import java.time.Duration;
+// Importa a classe Date para trabalhar com datas
+import java.util.Date;
 
-// Classe Leve, subclasse de Tanque, representa tanques leves com características específicas
-// Tanques leves têm alta velocidade, baixo blindagem e poder de fogo médio
+// Define a classe Leve que herda da classe Tanque
 public class Leve extends Tanque {
 
-    // Atributos específicos para tanques leves
-    int nome; // Possivelmente um identificador adicional (não usado atualmente)
-    int danoBase; // Dano base causado pelas armas
-    double alcanceEficaz; // Alcance efetivo da arma em unidades
-    Duration recarga; // Tempo de recarga da arma
+    // Declara atributo nome como inteiro
+    int nome;
+    // Declara atributo danoBase como inteiro
+    int danoBase;
+    // Declara atributo alcanceEficaz como double
+    double alcanceEficaz;
+    // Declara atributo recarga como Duration
+    Duration recarga;
 
-    // Construtor parametrizado que chama o construtor da classe pai
+    // Define o construtor parametrizado da classe Leve
     public Leve(int id, String codinome, int blindagem, int velocidade, int poderDeFogo, Date horaEntradaArena) {
+        // Chama o construtor da classe pai Tanque com os parâmetros fornecidos
         super(id, codinome, blindagem, velocidade, poderDeFogo, horaEntradaArena);
     }
 
-    // Construtor padrão que chama o construtor padrão da classe pai
+    // Define o construtor padrão da classe Leve
     public Leve() {
+        // Chama o construtor padrão da classe pai Tanque
         super();
     }
 
-    // Sobrescreve o método armasCaract da classe pai para definir características baseadas na arma escolhida
+    // Sobrescreve o método armasCaract da classe pai
     @Override
     void armasCaract(String Metralhadora, String Missil, String Canhao, int escolha) {
-        // Chama o método da classe pai primeiro
+        // Chama o método armasCaract da classe pai
         super.armasCaract(Metralhadora, Missil, Canhao, escolha);
 
-        // Define características baseadas na escolha da arma
-        if (escolha == 1) { // Metralhadora
-            danoBase *= 2; // Dano dobrado
-            alcanceEficaz = 8; // Alcance de 8 unidades
-            recarga = Duration.ofSeconds(2); // Recarga de 2 segundos
-        } else if (escolha == 2) { // Míssil
-            danoBase *= 6; // Dano sextuplicado
-            alcanceEficaz = 10; // Alcance de 10 unidades
-            recarga = Duration.ofSeconds(8); // Recarga de 8 segundos
-        } else if (escolha == 3) { // Canhão
-            danoBase *= 12; // Dano doze vezes maior
-            alcanceEficaz = 20; // Alcance de 20 unidades
-            recarga = Duration.ofSeconds(14); // Recarga de 14 segundos
+        // Verifica se a escolha é 1 (Metralhadora)
+        if (escolha == 1) {
+            // Multiplica o danoBase por 2
+            danoBase *= 2;
+            // Define o alcanceEficaz como 8
+            alcanceEficaz = 8;
+            // Define a recarga como 2 segundos
+            recarga = Duration.ofSeconds(2);
+        // Verifica se a escolha é 2 (Míssil)
+        } else if (escolha == 2) {
+            // Multiplica o danoBase por 6
+            danoBase *= 6;
+            // Define o alcanceEficaz como 10
+            alcanceEficaz = 10;
+            // Define a recarga como 8 segundos
+            recarga = Duration.ofSeconds(8);
+        // Verifica se a escolha é 3 (Canhão)
+        } else if (escolha == 3) {
+            // Multiplica o danoBase por 12
+            danoBase *= 12;
+            // Define o alcanceEficaz como 20
+            alcanceEficaz = 20;
+            // Define a recarga como 14 segundos
+            recarga = Duration.ofSeconds(14);
         }
     }
 
     // Implementa o método abstrato Caracterisrticas da classe pai
     @Override
     public void Caracterisrticas() {
-        danoBase = 10; // Define o dano base padrão para tanques leves
+        // Define o danoBase como 10
+        danoBase = 10;
     }
 
 }

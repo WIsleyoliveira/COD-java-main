@@ -1,265 +1,320 @@
-// Pacote do projeto
+// Declara o pacote do projeto
 package gradle;
 
-// Importações para JavaFX: aplicação, carregamento de FXML, cenas, imagens, stages
-import javafx.application.Application; // Classe base para aplicações JavaFX
-import javafx.fxml.FXMLLoader; // Para carregar arquivos FXML
-import javafx.scene.Parent; // Nó raiz da cena
-import javafx.scene.Scene; // Cena da aplicação
-import javafx.scene.image.Image; // Para ícones
-import javafx.stage.Stage; // Janela principal
-import javafx.stage.StageStyle; // Estilos de stage (não usado)
-import javafx.scene.paint.Color; // Cores para a cena
+// Importa Application para JavaFX
+import javafx.application.Application;
+// Importa FXMLLoader para carregar FXML
+import javafx.fxml.FXMLLoader;
+// Importa Parent para nó raiz
+import javafx.scene.Parent;
+// Importa Scene para cena
+import javafx.scene.Scene;
+// Importa Image para ícones
+import javafx.scene.image.Image;
+// Importa Stage para janela
+import javafx.stage.Stage;
+// Importa StageStyle para estilos
+import javafx.stage.StageStyle;
+// Importa Color para cores
+import javafx.scene.paint.Color;
 
-// Importação para listas
-import java.util.ArrayList; // Para listas de tanques
+// Importa ArrayList para listas
+import java.util.ArrayList;
 
-/**
- * 🎮 Tank Battle Arena - JavaFX Application
- * Interface gráfica moderna para o sistema de combate de tanques
- */
-// Classe principal da aplicação JavaFX, estende Application
+// Define a classe MainApp que estende Application
 public class MainApp extends Application {
 
-    // Atributos estáticos para compartilhamento entre telas
-    private static Stage primaryStage; // Stage principal da aplicação
-    private static ArrayList<Tanque> tanquesAliado = new ArrayList<>(); // Lista de tanques aliados
-    private static ArrayList<Tanque> tanqueInimigo = new ArrayList<>(); // Lista de tanques inimigos
-    private static Modos modos; // Instância da classe Modos para gerenciar modos de jogo
+    // Declara atributo primaryStage como Stage
+    private static Stage primaryStage;
+    // Declara atributo tanquesAliado como ArrayList
+    private static ArrayList<Tanque> tanquesAliado = new ArrayList<>();
+    // Declara atributo tanqueInimigo como ArrayList
+    private static ArrayList<Tanque> tanqueInimigo = new ArrayList<>();
+    // Declara atributo modos como Modos
+    private static Modos modos;
 
-    // Método sobrescrito para iniciar a aplicação JavaFX
+    // Sobrescreve o método start
     @Override
     public void start(Stage stage) {
+        // Inicia bloco try
         try {
-            primaryStage = stage; // Define o stage principal
+            // Atribui stage a primaryStage
+            primaryStage = stage;
 
-            // Inicializar sistema de modos com listas vazias
+            // Instancia Modos
             modos = new Modos(null, 0, 0, tanquesAliado, tanqueInimigo);
 
-            // Configurar propriedades do stage principal
-            primaryStage.setTitle("🎮 Tank Battle Arena"); // Título da janela
-            primaryStage.setResizable(true); // Permite redimensionar
-            primaryStage.setMinWidth(1200); // Largura mínima
-            primaryStage.setMinHeight(800); // Altura mínima
+            // Define título do primaryStage
+            primaryStage.setTitle("🎮 Tank Battle Arena");
+            // Define resizable como true
+            primaryStage.setResizable(true);
+            // Define minWidth
+            primaryStage.setMinWidth(1200);
+            // Define minHeight
+            primaryStage.setMinHeight(800);
 
-            // Tentar carregar ícone da aplicação
+            // Inicia bloco try para ícone
             try {
+                // Adiciona ícone ao primaryStage
                 primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icons/tank-icon.png")));
+            // Catch para Exception
             } catch (Exception e) {
-                System.out.println("Ícone não encontrado, usando padrão"); // Mensagem se ícone não existir
+                // Imprime mensagem
+                System.out.println("Ícone não encontrado, usando padrão");
             }
 
-            // Carregar e exibir o menu principal
+            // Chama showMainMenu
             showMainMenu();
 
+        // Catch para Exception
         } catch (Exception e) {
-            e.printStackTrace(); // Imprimir stack trace em caso de erro
+            // Imprime stack trace
+            e.printStackTrace();
+            // Imprime erro
             System.err.println("Erro ao inicializar a aplicação: " + e.getMessage());
         }
     }
 
-    /**
-     * Exibe o menu principal
-     */
+    // Define o método showMainMenu
     public static void showMainMenu() {
+        // Inicia bloco try
         try {
-            // Carregar o FXML do menu principal
+            // Cria FXMLLoader
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/MainMenu.fxml"));
-            Parent root = loader.load(); // Carregar o nó raiz
+            // Carrega root
+            Parent root = loader.load();
 
-            // Obter e configurar o controlador
+            // Obtém controller
             MainMenuController controller = loader.getController();
-            controller.setMainApp(); // Passar referência para a aplicação principal
+            // Chama setMainApp
+            controller.setMainApp();
 
-            // Criar cena com tamanho específico
+            // Cria Scene
             Scene scene = new Scene(root, 1400, 900);
-            scene.setFill(Color.TRANSPARENT); // Fundo transparente
-            // Adicionar folha de estilo CSS
+            // Define fill como TRANSPARENT
+            scene.setFill(Color.TRANSPARENT);
+            // Adiciona stylesheet
             scene.getStylesheets().add(MainApp.class.getResource("/css/main-style.css").toExternalForm());
 
-            // Definir cena no stage e mostrar
+            // Define scene no primaryStage
             primaryStage.setScene(scene);
+            // Mostra primaryStage
             primaryStage.show();
 
+        // Catch para Exception
         } catch (Exception e) {
+            // Imprime stack trace
             e.printStackTrace();
+            // Imprime erro
             System.err.println("Erro ao carregar menu principal: " + e.getMessage());
         }
     }
 
-    /**
-     * Navega para tela de criação de tanques
-     */
+    // Define o método showTankCreation
     public static void showTankCreation() {
+        // Inicia bloco try
         try {
-            // Carregar FXML de criação de tanques
+            // Cria FXMLLoader
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/TankCreation.fxml"));
+            // Carrega root
             Parent root = loader.load();
 
-            // Configurar controlador
+            // Obtém controller
             TankCreationController controller = loader.getController();
+            // Chama setMainApp
             controller.setMainApp();
 
-            // Criar cena
+            // Cria Scene
             Scene scene = new Scene(root, 1200, 800);
+            // Adiciona stylesheet
             scene.getStylesheets().add(MainApp.class.getResource("/css/main-style.css").toExternalForm());
 
-            // Definir cena no stage
+            // Define scene no primaryStage
             primaryStage.setScene(scene);
 
+        // Catch para Exception
         } catch (Exception e) {
+            // Imprime stack trace
             e.printStackTrace();
+            // Imprime erro
             System.err.println("Erro ao carregar criação de tanques: " + e.getMessage());
         }
     }
 
-    /**
-     * Navega para seleção de arena
-     */
+    // Define o método showArenaSelection
     public static void showArenaSelection() {
+        // Inicia bloco try
         try {
-            // Carregar FXML de seleção de arena
+            // Cria FXMLLoader
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/ArenaSelection.fxml"));
+            // Carrega root
             Parent root = loader.load();
 
-            // Configurar controlador
+            // Obtém controller
             ArenaSelectionController controller = loader.getController();
+            // Chama setMainApp
             controller.setMainApp();
 
-            // Criar cena
+            // Cria Scene
             Scene scene = new Scene(root, 1200, 800);
+            // Adiciona stylesheet
             scene.getStylesheets().add(MainApp.class.getResource("/css/main-style.css").toExternalForm());
 
-            // Definir cena
+            // Define scene no primaryStage
             primaryStage.setScene(scene);
 
+        // Catch para Exception
         } catch (Exception e) {
+            // Imprime stack trace
             e.printStackTrace();
+            // Imprime erro
             System.err.println("Erro ao carregar seleção de arena: " + e.getMessage());
         }
     }
 
-    /**
-     * Navega para a tela de batalha
-     */
+    // Define o método showBattle
     public static void showBattle() {
+        // Inicia bloco try
         try {
-            // Carregar FXML de batalha
+            // Cria FXMLLoader
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/BattleArena.fxml"));
+            // Carrega root
             Parent root = loader.load();
 
-            // Configurar controlador
+            // Obtém controller
             BattleArenaController controller = loader.getController();
+            // Chama setMainApp
             controller.setMainApp();
 
-            // Criar cena
+            // Cria Scene
             Scene scene = new Scene(root, 1400, 900);
+            // Adiciona stylesheet
             scene.getStylesheets().add(MainApp.class.getResource("/css/main-style.css").toExternalForm());
 
-            // Definir cena
+            // Define scene no primaryStage
             primaryStage.setScene(scene);
 
+        // Catch para Exception
         } catch (Exception e) {
+            // Imprime stack trace
             e.printStackTrace();
+            // Imprime erro
             System.err.println("Erro ao carregar arena de batalha: " + e.getMessage());
         }
     }
 
-    /**
-     * Navega para o modo equipe
-     */
+    // Define o método showTeamMode
     public static void showTeamMode() {
+        // Inicia bloco try
         try {
-            // Carregar FXML do modo equipe
+            // Cria FXMLLoader
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/TeamMode.fxml"));
+            // Carrega root
             Parent root = loader.load();
 
-            // Configurar controlador
+            // Obtém controller
             TeamModeController controller = loader.getController();
+            // Chama setMainApp
             controller.setMainApp();
 
-            // Criar cena
+            // Cria Scene
             Scene scene = new Scene(root, 1200, 800);
+            // Adiciona stylesheet
             scene.getStylesheets().add(MainApp.class.getResource("/css/main-style.css").toExternalForm());
 
-            // Definir cena
+            // Define scene no primaryStage
             primaryStage.setScene(scene);
 
+        // Catch para Exception
         } catch (Exception e) {
+            // Imprime stack trace
             e.printStackTrace();
+            // Imprime erro
             System.err.println("Erro ao carregar modo equipe: " + e.getMessage());
         }
     }
 
-    // Getters para acessar dados compartilhados entre telas
+    // Define o método getTanquesAliado
     public static ArrayList<Tanque> getTanquesAliado() {
-        return tanquesAliado; // Retorna lista de aliados
+        // Retorna tanquesAliado
+        return tanquesAliado;
     }
 
+    // Define o método getTanqueInimigo
     public static ArrayList<Tanque> getTanqueInimigo() {
-        return tanqueInimigo; // Retorna lista de inimigos
+        // Retorna tanqueInimigo
+        return tanqueInimigo;
     }
 
+    // Define o método getModos
     public static Modos getModos() {
-        return modos; // Retorna instância de Modos
+        // Retorna modos
+        return modos;
     }
 
+    // Define o método getPrimaryStage
     public static Stage getPrimaryStage() {
-        return primaryStage; // Retorna stage principal
+        // Retorna primaryStage
+        return primaryStage;
     }
 
-    /**
-     * Gera um ID único para tanque
-     */
-    private static int nextTankId = 1000; // Contador para IDs únicos
+    // Declara atributo nextTankId
+    private static int nextTankId = 1000;
+    // Define o método getNextTankId
     public static int getNextTankId() {
-        return nextTankId++; // Incrementa e retorna próximo ID
+        // Retorna nextTankId e incrementa
+        return nextTankId++;
     }
 
-    /**
-     * Inicia batalha em equipe
-     */
+    // Define o método startTeamBattle
     public static void startTeamBattle(java.util.List<Tanque> alliedTeam, java.util.List<Tanque> enemyTeam, boolean isManual) {
+        // Se isManual
         if (isManual) {
-            // Se manual, mostrar batalha manual
+            // Chama showManualBattle
             showManualBattle(alliedTeam, enemyTeam);
+        // Senão
         } else {
-            // TODO: Implementar batalha automática (ainda não implementada)
+            // Imprime mensagem
             System.out.println("Batalha automática ainda não implementada");
-            showMainMenu(); // Voltar ao menu
+            // Chama showMainMenu
+            showMainMenu();
         }
     }
 
-    /**
-     * Navega para a tela de batalha manual
-     */
+    // Define o método showManualBattle
     public static void showManualBattle(java.util.List<Tanque> alliedTeam, java.util.List<Tanque> enemyTeam) {
+        // Inicia bloco try
         try {
-            // Carregar FXML de batalha manual
+            // Cria FXMLLoader
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/ManualBattle.fxml"));
+            // Carrega root
             Parent root = loader.load();
 
-            // Configurar controlador com times
+            // Obtém controller
             ManualBattleController controller = loader.getController();
-            controller.setTeams(alliedTeam, enemyTeam); // Passar times para o controlador
+            // Chama setTeams
+            controller.setTeams(alliedTeam, enemyTeam);
 
-            // Criar cena
+            // Cria Scene
             Scene scene = new Scene(root, 1400, 900);
+            // Adiciona stylesheet
             scene.getStylesheets().add(MainApp.class.getResource("/css/main-style.css").toExternalForm());
 
-            // Definir cena
+            // Define scene no primaryStage
             primaryStage.setScene(scene);
 
+        // Catch para Exception
         } catch (Exception e) {
+            // Imprime stack trace
             e.printStackTrace();
+            // Imprime erro
             System.err.println("Erro ao carregar batalha manual: " + e.getMessage());
         }
     }
 
-    /**
-     * Método principal para lançar a aplicação JavaFX
-     */
+    // Define o método main
     public static void main(String[] args) {
-        launch(args); // Inicia a aplicação JavaFX
+        // Chama launch
+        launch(args);
     }
 }

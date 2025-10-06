@@ -1,167 +1,250 @@
-// Pacote do projeto
+// Declara o pacote do projeto
 package gradle;
 
-// Importações para manipulação de datas, listas e entrada do usuário
-import java.time.LocalDateTime; // Para obter data e hora atual
-import java.time.format.DateTimeFormatter; // Para formatar datas
-import java.util.ArrayList; // Para listas de tanques e partidas
-import java.util.Date; // Para datas (usado no construtor)
-import java.util.Scanner; // Para entrada do usuário
+// Importa LocalDateTime para data e hora
+import java.time.LocalDateTime;
+// Importa DateTimeFormatter para formatar datas
+import java.time.format.DateTimeFormatter;
+// Importa ArrayList para listas
+import java.util.ArrayList;
+// Importa Date para datas
+import java.util.Date;
+// Importa Scanner para entrada
+import java.util.Scanner;
 
-// Classe Modos, responsável por gerenciar diferentes modos de jogo: Treino, PvP, TvT
+// Define a classe Modos
 public class Modos {
 
-    // Atributos da classe
-    Scanner sc = new Scanner(System.in); // Scanner para entrada do usuário
-    Date dataHora; // Data e hora da partida
-    double duracao; // Duração da partida em horas
-    int arena; // ID da arena/mapa selecionada
-    LocalDateTime agora = LocalDateTime.now(); // Data e hora atual
-    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); // Formato para exibir data/hora
-    String formatada = agora.format(formato); // String formatada da data/hora atual
-    ArrayList<Tanque> tanquesAliado; // Lista de tanques aliados
-    ArrayList<Tanque> tanqueInimigo; // Lista de tanques inimigos
-    ArrayList<String> partidasAgendadas = new ArrayList<>(); // Lista de partidas agendadas
+    // Declara Scanner sc
+    Scanner sc = new Scanner(System.in);
+    // Declara Date dataHora
+    Date dataHora;
+    // Declara double duracao
+    double duracao;
+    // Declara int arena
+    int arena;
+    // Declara LocalDateTime agora
+    LocalDateTime agora = LocalDateTime.now();
+    // Declara DateTimeFormatter formato
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    // Declara String formatada
+    String formatada = agora.format(formato);
+    // Declara ArrayList tanquesAliado
+    ArrayList<Tanque> tanquesAliado;
+    // Declara ArrayList tanqueInimigo
+    ArrayList<Tanque> tanqueInimigo;
+    // Declara ArrayList partidasAgendadas
+    ArrayList<String> partidasAgendadas = new ArrayList<>();
 
-    // Construtor da classe Modos
+    // Define o construtor da classe Modos
     public Modos(Date dataHora, double duracao, int arena, ArrayList<Tanque> tanquesAliado, ArrayList<Tanque> tanqueInimigo) {
+        // Atribui dataHora
         this.dataHora = dataHora;
+        // Atribui duracao
         this.duracao = duracao;
+        // Atribui arena
         this.arena = arena;
+        // Atribui tanquesAliado
         this.tanquesAliado = tanquesAliado;
+        // Atribui tanqueInimigo
         this.tanqueInimigo = tanqueInimigo;
     }
 
-    // Método para o modo Treino: simula uma partida rápida com modificadores de mapa
+    // Define o método modoTreino
     void modoTreino() {
-        // Verifica se há tanques criados
+        // Verifica se listas estão vazias
         if (tanquesAliado.size() == 0 || tanqueInimigo.size() == 0) {
+            // Imprime mensagem
             System.out.println("Você deve criar tanques aliados e inimigos para continuar!");
+            // Retorna
             return;
         }
 
-        // Seleção do mapa
+        // Imprime escolha de mapa
         System.out.println("Escolha um mapa: ");
+        // Imprime opção 1
         System.out.println("(1) Deserto");
+        // Imprime opção 2
         System.out.println("(2) Urbano");
+        // Imprime opção 3
         System.out.println("(3) Campo Aberto");
+        // Lê arena
         arena = sc.nextInt();
 
-        String nomeArena = ""; // Nome do mapa (não usado atualmente)
+        // Declara nomeArena
+        String nomeArena = "";
 
-        // Obtém o primeiro tanque de cada lado
+        // Obtém tanqueAliado
         Tanque tanqueAliado = tanquesAliado.get(0);
+        // Obtém tanqueInimigoObj
         Tanque tanqueInimigoObj = tanqueInimigo.get(0);
 
-        // Aplica modificadores baseados no mapa selecionado
+        // Inicia switch arena
         switch (arena) {
-            case 1: // Deserto: reduz velocidade
+            // Caso 1
+            case 1:
+                // Imprime mapa Deserto
                 System.out.println("Mapa selecionado: Deserto");
+                // Imprime horário
                 System.out.println("Horário inicial da partida: " + formatada);
+                // Modifica velocidade aliado
                 tanqueAliado.setVelocidade((int)(tanqueAliado.getVelocidade() * 0.60));
+                // Modifica velocidade inimigo
                 tanqueInimigoObj.setVelocidade((int)(tanqueInimigoObj.getVelocidade() * 0.60));
+                // Sai
                 break;
-            case 2: // Urbano: aumenta blindagem
+            // Caso 2
+            case 2:
+                // Imprime mapa Urbano
                 System.out.println("Mapa selecionado: Urbano");
+                // Imprime horário
                 System.out.println("Horário inicial da partida: " + formatada);
+                // Modifica blindagem aliado
                 tanqueAliado.setBlindagem((int)(tanqueAliado.getBlindagem() * 2));
+                // Modifica blindagem inimigo
                 tanqueInimigoObj.setBlindagem((int)(tanqueInimigoObj.getBlindagem() * 2));
+                // Sai
                 break;
-            case 3: // Campo Aberto: aumenta poder de fogo
+            // Caso 3
+            case 3:
+                // Imprime mapa Campo Aberto
                 System.out.println("Mapa selecionado: Campo Aberto");
+                // Imprime horário
                 System.out.println("Horário inicial da partida: " + formatada);
+                // Modifica poder de fogo aliado
                 tanqueAliado.setPoderDeFogo((int)(tanqueAliado.getPoderDeFogo() * 2));
+                // Modifica poder de fogo inimigo
                 tanqueInimigoObj.setPoderDeFogo((int)(tanqueInimigoObj.getPoderDeFogo() * 2));
+                // Sai
                 break;
+            // Default
             default:
+                // Imprime inválida
                 System.out.println("Opção inválida");
+                // Sai
                 break;
         }
 
-        // Exibe informações dos tanques após modificadores
+        // Imprime tanque aliado
         System.out.println("#=# TANQUE ALIADO #=#");
+        // Imprime info aliado
         System.out.println("|Codinome: " + tanqueAliado.getCodinome() +
                         "|Blindagem: " + tanqueAliado.getBlindagem() +
                         "|Velocidade: " + tanqueAliado.getVelocidade() + "|");
 
+        // Imprime tanque inimigo
         System.out.println("#=# TANQUE INIMIGO #=#");
+        // Imprime info inimigo
         System.out.println("|Codinome: " + tanqueInimigoObj.getCodinome() +
             "|Blindagem: " + tanqueInimigoObj.getBlindagem() +
             "|Velocidade: " + tanqueInimigoObj.getVelocidade() + "|");
 
-        // Agenda a partida
+        // Adiciona à agendadas
         partidasAgendadas.add("Treino - " + nomeArena + " - " + formatada);
+        // Imprime agendada
         System.out.println("Partida de treino agendada!");
-
-        // Código da partida (comentado, a ser implementado)
     }
 
-    // Método para o modo PvP: agendamento de partida jogador vs jogador
+    // Define o método modoPvP
     void modoPvP() {
         // Verifica tanques
         if (tanquesAliado.size() == 0 || tanqueInimigo.size() == 0) {
+            // Imprime mensagem
             System.out.println("Você deve criar um Tanque para continuar!");
+            // Retorna
             return;
         }
 
+        // Imprime agendamento PvP
         System.out.println("Agendamento de Partida PvP");
+        // Imprime prompt data
         System.out.print("Data (dd/MM/yyyy): ");
+        // Lê dataStr
         String dataStr = sc.next();
+        // Imprime prompt hora
         System.out.print("Hora (HH:mm): ");
+        // Lê horaStr
         String horaStr = sc.next();
+        // Imprime prompt duração
         System.out.print("Duração (horas): ");
+        // Lê duracaoPvP
         double duracaoPvP = sc.nextDouble();
 
+        // Imprime escolha mapa
         System.out.println("Escolha um mapa: ");
+        // Imprime 1
         System.out.println("(1) Deserto");
+        // Imprime 2
         System.out.println("(2) Urbano");
+        // Imprime 3
         System.out.println("(3) Campo Aberto");
+        // Lê arenaPvP
         int arenaPvP = sc.nextInt();
 
-        String nomeArena = ""; // Nome não definido
+        // Declara nomeArena
+        String nomeArena = "";
 
-        // Agenda a partida PvP
+        // Adiciona à agendadas
         partidasAgendadas.add("PvP - " + nomeArena + " - " + dataStr + " " + horaStr);
+        // Imprime agendada
         System.out.println("Partida PvP agendada!");
-
-        // Código da partida (comentado)
     }
 
-    // Método para o modo TvT: time vs time
+    // Define o método modoTvT
     void modoTvT() {
+        // Imprime agendamento TvT
         System.out.println("Agendamento de Partida Time vs Time");
+        // Imprime prompt tamanho
         System.out.print("Quantos tanques por time? ");
+        // Lê tamanhoTime
         int tamanhoTime = sc.nextInt();
 
+        // Imprime prompt data
         System.out.print("Data (dd/MM/yyyy): ");
+        // Lê dataStr
         String dataStr = sc.next();
+        // Imprime prompt hora
         System.out.print("Hora (HH:mm): ");
+        // Lê horaStr
         String horaStr = sc.next();
+        // Imprime prompt duração
         System.out.print("Duração (horas): ");
+        // Lê duracaoTvT
         double duracaoTvT = sc.nextDouble();
 
+        // Imprime escolha mapa
         System.out.println("Escolha um mapa: ");
+        // Imprime 1
         System.out.println("(1) Deserto");
+        // Imprime 2
         System.out.println("(2) Urbano");
+        // Imprime 3
         System.out.println("(3) Campo Aberto");
+        // Lê arenaTvT
         int arenaTvT = sc.nextInt();
 
-        String nomeArena = ""; // Nome não definido
+        // Declara nomeArena
+        String nomeArena = "";
 
-        // Agenda a partida TvT
+        // Adiciona à agendadas
         partidasAgendadas.add("TvT " + tamanhoTime + "v" + tamanhoTime + " - " + nomeArena + " - " + dataStr + " " + horaStr);
+        // Imprime agendada
         System.out.println("Partida TvT agendada!");
-
-        // Código da partida (comentado)
     }
 
-    // Método para listar partidas agendadas
+    // Define o método listarPartidas
     public void listarPartidas() {
+        // Imprime cabeçalho
         System.out.println("PARTIDAS AGENDADAS:");
+        // Se vazia
         if (partidasAgendadas.isEmpty()) {
+            // Imprime nenhuma
             System.out.println("Nenhuma partida agendada.");
+        // Senão
         } else {
+            // Para cada partida
             for (String partida : partidasAgendadas) {
+                // Imprime partida
                 System.out.println(" - " + partida);
             }
         }
