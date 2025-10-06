@@ -128,18 +128,40 @@ public class MainApp extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/BattleArena.fxml"));
             Parent root = loader.load();
-            
+
             BattleArenaController controller = loader.getController();
             controller.setMainApp();
-            
+
             Scene scene = new Scene(root, 1400, 900);
             scene.getStylesheets().add(MainApp.class.getResource("/css/main-style.css").toExternalForm());
-            
+
             primaryStage.setScene(scene);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("Erro ao carregar arena de batalha: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Navega para o modo equipe
+     */
+    public static void showTeamMode() {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/TeamMode.fxml"));
+            Parent root = loader.load();
+
+            TeamModeController controller = loader.getController();
+            controller.setMainApp();
+
+            Scene scene = new Scene(root, 1200, 800);
+            scene.getStylesheets().add(MainApp.class.getResource("/css/main-style.css").toExternalForm());
+
+            primaryStage.setScene(scene);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Erro ao carregar modo equipe: " + e.getMessage());
         }
     }
     
@@ -147,17 +169,38 @@ public class MainApp extends Application {
     public static ArrayList<Tanque> getTanquesAliado() {
         return tanquesAliado;
     }
-    
+
     public static ArrayList<Tanque> getTanqueInimigo() {
         return tanqueInimigo;
     }
-    
+
     public static Modos getModos() {
         return modos;
     }
-    
+
     public static Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    /**
+     * Gera um ID único para tanque
+     */
+    private static int nextTankId = 1000;
+    public static int getNextTankId() {
+        return nextTankId++;
+    }
+
+    /**
+     * Inicia batalha em equipe (placeholder - implementar futuramente)
+     */
+    public static void startTeamBattle(java.util.List<Tanque> alliedTeam, java.util.List<Tanque> enemyTeam, boolean isManual) {
+        // TODO: Implementar lógica de batalha em equipe
+        System.out.println("Batalha em equipe iniciada - Manual: " + isManual);
+        System.out.println("Time Aliado: " + alliedTeam.size() + " tanques");
+        System.out.println("Time Inimigo: " + enemyTeam.size() + " tanques");
+
+        // Por enquanto, apenas volta ao menu principal
+        showMainMenu();
     }
     
     /**

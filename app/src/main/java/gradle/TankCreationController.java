@@ -15,7 +15,7 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 public class TankCreationController implements Initializable {
-    
+
     @FXML private Button backButton;
     @FXML private ToggleButton allyToggle;
     @FXML private ToggleButton enemyToggle;
@@ -37,10 +37,11 @@ public class TankCreationController implements Initializable {
     @FXML private Button createButton;
     @FXML private VBox toastContainer;
     @FXML private Label toastMessage;
-    
+
     private ToggleGroup teamGroup;
     private ToggleGroup classGroup;
     private static final int MAX_TOTAL_POINTS = 300;
+    private static final int MAX_TANKS = 12;
     private Random random = new Random();
     
     @Override
@@ -213,6 +214,16 @@ public class TankCreationController implements Initializable {
         String tankName = tankNameField.getText().trim();
         if (tankName.isEmpty()) {
             showAlert("Validação", "Nome do tanque não pode estar vazio!", Alert.AlertType.WARNING);
+            return false;
+        }
+
+        // Verificar limite total de tanques (12 máximo)
+        int totalTanks = MainApp.getTanquesAliado().size() + MainApp.getTanqueInimigo().size();
+        if (totalTanks >= MAX_TANKS) {
+            showAlert("Limite Atingido", "Você já possui o limite máximo de " + MAX_TANKS + " tanques simultâneos!\n\n" +
+                      "Tanques atuais: " + totalTanks + "\n" +
+                      "Aliados: " + MainApp.getTanquesAliado().size() + "\n" +
+                      "Inimigos: " + MainApp.getTanqueInimigo().size(), Alert.AlertType.WARNING);
             return false;
         }
 
